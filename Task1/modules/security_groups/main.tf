@@ -12,7 +12,7 @@ resource "aws_vpc_security_group_ingress_rule" "this" {
   for_each = { for idx, rule in var.ingress_rules : idx => rule }
 
   security_group_id = aws_security_group.sg.id
-  
+
   ip_protocol                  = each.value.protocol
   from_port                    = each.value.from_port
   to_port                      = each.value.to_port
@@ -25,7 +25,7 @@ resource "aws_vpc_security_group_egress_rule" "this" {
   for_each = { for idx, rule in var.egress_rules : idx => rule }
 
   security_group_id = aws_security_group.sg.id
-  
+
   ip_protocol                  = each.value.protocol
   from_port                    = each.value.from_port
   to_port                      = each.value.to_port

@@ -1,7 +1,7 @@
 variable "vpc_name" {
   description = "Name of the VPC"
   type        = string
-  default     = "my-vpc" 
+  default     = "my-vpc"
 }
 
 variable "public_subnet_id" {
