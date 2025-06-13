@@ -2,9 +2,9 @@ name: Terraform CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   terraform:
@@ -22,17 +22,21 @@ jobs:
 
       - name: Terraform Format Check
         run: terraform fmt -check -recursive
+        working-directory: Task1
 
       - name: Terraform Init
         run: terraform init
+        working-directory: Task1
 
       - name: Terraform Validate
         run: terraform validate
+        working-directory: Task1
 
       - name: Terraform Plan
         run: terraform plan
+        working-directory: Task1
 
       - name: Run Checkov Security Scan
         uses: bridgecrewio/checkov-action@v12.2485.0
         with:
-          directory: .
+          directory: Task1
