@@ -1,4 +1,3 @@
-skip-checks:
-  - CKV_AWS_135  # EBS optimized đã có sẵn trên t3.micro
-  - CKV_AWS_126  # detailed monitoring (đã bật rồi)
-  - CKV_AWS_8    # nếu bạn đã bật encrypted, có thể bỏ
+skip-check:
+  - CKV_AWS_135  
+
