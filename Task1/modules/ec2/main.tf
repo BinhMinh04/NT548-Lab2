@@ -18,8 +18,6 @@ resource "aws_instance" "ec2" {
   tags = {
     Name = "${var.vpc_name}-${var.name}"
   }
-
-  # Allow checkov to skip the check because t3.micro is already EBS optimized
   lifecycle {
     ignore_changes = [ebs_optimized]
   }
