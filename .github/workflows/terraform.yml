@@ -44,3 +44,4 @@ jobs:
         uses: bridgecrewio/checkov-action@v12.2485.0
         with:
           directory: Task1
+          config_file: Task1/.checkov.yml
