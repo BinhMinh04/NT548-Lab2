@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-east-1"
+  region = "ap-southeast-1"
 }
 
 module "vpc" {
@@ -42,7 +42,7 @@ module "public_sg" {
       from_port   = 22
       to_port     = 22
       protocol    = "tcp"
-      cidr_blocks = ["118.70.53.89/23"]
+      cidr_blocks = ["125.235.239.47/32"]
     }
   ]
 
