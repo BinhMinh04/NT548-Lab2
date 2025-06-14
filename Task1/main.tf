@@ -95,7 +95,7 @@ module "public_ec2" {
   instance_type               = "t3.micro"
   subnet_id                   = module.vpc.public_subnet_id
   vpc_security_group_ids      = [module.public_sg.id]
-  key_name                    = "ec2key"
+  key_name                    = "terraform_lab01"
   associate_public_ip_address = true
 }
 
@@ -108,6 +108,6 @@ module "private_ec2" {
   instance_type               = "t3.micro"
   subnet_id                   = module.vpc.private_subnet_id
   vpc_security_group_ids      = [module.private_sg.id]
-  key_name                    = "ec2key"
+  key_name                    = "terraform_lab01"
   associate_public_ip_address = false
 }
