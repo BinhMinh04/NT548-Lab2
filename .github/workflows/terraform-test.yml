@@ -24,8 +24,9 @@ jobs:
         working-directory: Task1
 
       - name: Terraform Apply (Debug)
-        run: export TF_LOG=DEBUG
-          terraform apply -auto-approve
+        run: |
+            export TF_LOG=DEBUG
+            terraform apply -auto-approve
         working-directory: Task1
 
       - name: Wait for Testing (optional)
