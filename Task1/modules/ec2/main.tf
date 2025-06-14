@@ -7,6 +7,15 @@ resource "aws_instance" "ec2" {
   user_data                   = var.user_data
   associate_public_ip_address = var.associate_public_ip_address
   monitoring                  = true
+  root_block_device {
+    volume_size = 8
+    volume_type = "gp2"
+    encrypted   = true
+  }
+
+  metadata_options {
+    http_tokens = "required"
+  }
   tags = {
     Name = "${var.vpc_name}-${var.name}"
   }
