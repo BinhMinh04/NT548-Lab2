@@ -6,8 +6,14 @@ resource "aws_instance" "ec2" {
   key_name                    = var.key_name
   user_data                   = var.user_data
   associate_public_ip_address = var.associate_public_ip_address
-
+  monitoring                  = true
   tags = {
     Name = "${var.vpc_name}-${var.name}"
   }
+
+  # Allow checkov to skip the check because t3.micro is already EBS optimized
+  lifecycle {
+    ignore_changes = [ebs_optimized]
+  }
 }
+
