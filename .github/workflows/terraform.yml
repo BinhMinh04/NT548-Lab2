@@ -7,41 +7,111 @@ on:
     branches: ["main"]
 
 jobs:
-  terraform:
-    name: Terraform Validate and Plan
+  Validate:
     runs-on: ubuntu-latest
-
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
+    name: Validate IaC
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v3
-
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: 1.5.7
-
-      - name: Terraform Format Check
-        run: terraform fmt -check -recursive
-        working-directory: Task1
-
+        uses: hashicorp/setup-terraform@v2
+        
+      - name: Terraform Format
+        run: |
+          cd terraform
+          terraform fmt -check -recursive
+        
       - name: Terraform Init
-        run: terraform init
-        working-directory: Task1
-
+        run: |
+          cd terraform
+          terraform init -backend=false
+        
       - name: Terraform Validate
-        run: terraform validate
-        working-directory: Task1
+        run: |
+          cd terraform
+          terraform validate
 
-      - name: Terraform Plan
-        run: terraform plan
-        working-directory: Task1
-
+  Scan:
+     runs-on: ubuntu-latest
+     name: Security Scan
+     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
       - name: Run Checkov Security Scan
         uses: bridgecrewio/checkov-action@v12.2485.0
         with:
           directory: Task1
           config_file: Task1/.checkov.yml
+
+  Plan:
+    runs-on: ubuntu-latest
+    needs: [Validate, Scan]
+    name: Terraform Plan
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-southeast-1
+        
+      - name: Terraform Init
+        run: |
+          cd Task1
+          terraform init
+        
+      - name: Terraform Plan
+        run: |
+          cd Task1
+          terraform plan -out=tfplan
+        
+      - name: Upload Terraform Plan
+        uses: actions/upload-artifact@v4
+        with:
+          name: terraform-plan
+          path: Task1/tfplan
+          retention-days: 1
+
+  Apply:
+    runs-on: ubuntu-latest
+    needs: Plan
+    name: Apply Infrastructure Changes
+    environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'development' }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-southeast-1
+        
+      - name: Download Terraform Plan
+        uses: actions/download-artifact@v4
+        with:
+          name: terraform-plan
+          path: terraform-plan
+        
+      - name: Terraform Init
+        run: |
+          cd Task1
+          terraform init
+        
+      - name: Terraform Apply
+        run: |
+          cd Task1
+          cp ../terraform-plan/tfplan .
+          terraform apply -auto-approve tfplan
