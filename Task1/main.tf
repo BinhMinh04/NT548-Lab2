@@ -101,7 +101,7 @@ module "public_ec2" {
 
   name                        = "public-instance"
   vpc_name                    = module.vpc.vpc_name
-  ami_id                      = "ami-0f88e80871fd81e91"
+  ami_id                      = "ami-0435fcf800fb5418d"
   instance_type               = "t3.micro"
   subnet_id                   = module.vpc.public_subnet_id
   vpc_security_group_ids      = [module.public_sg.id]
@@ -114,7 +114,7 @@ module "private_ec2" {
 
   name                        = "private-instance"
   vpc_name                    = module.vpc.vpc_name
-  ami_id                      = "ami-0f88e80871fd81e91"
+  ami_id                      = "ami-0435fcf800fb5418d"
   instance_type               = "t3.micro"
   subnet_id                   = module.vpc.private_subnet_id
   vpc_security_group_ids      = [module.private_sg.id]
