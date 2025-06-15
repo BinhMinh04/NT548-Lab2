@@ -4,8 +4,8 @@ project:
     - ap-southeast-1   
   tests:
     default:
-      template: resource.yaml
+      template: Task2/resource.yaml
       parameters:
         KeyName: lab2
         MyIP: 125.235.239.47/32
-        
+

@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: 'NT548 - Lab 02: Deploy VPC, EC2 with CloudFormation (Standardized Resource Names)'
+Description: 'NT548-Lab02: Deploy VPC, EC2 with CloudFormation (Standardized Resource Names)'
 
 Parameters:
   KeyName:

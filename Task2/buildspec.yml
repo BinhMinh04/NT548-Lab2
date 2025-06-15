@@ -9,7 +9,7 @@ phases:
       - pip install cfn-lint taskcat
   build:
     commands:
-      - echo "🔍 Running cfn-lint to validate template syntax..."
-      - cfn-lint resource.yaml
-      - echo "✅ Running taskcat to test deployment..."
+      - echo "Running cfn-lint to validate template syntax..."
+      - cfn-lint Task2/resource.yaml
+      - echo "Running taskcat to test deployment..."
       - taskcat test run
