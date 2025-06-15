@@ -2,8 +2,8 @@ provider "aws" {
   region = "ap-southeast-1"
 }
 
-resource "aws_s3_bucket" "tf_backend" {
-  bucket        = "remote-backend-s3"
+resource "aws_s3_bucket" "tf-backend" {
+  bucket        = "remote-backend-s3-lab2"
   force_destroy = true
 
   versioning {
@@ -20,7 +20,7 @@ resource "aws_s3_bucket" "tf_backend" {
 }
 
 resource "aws_dynamodb_table" "tf_locks" {
-  name         = "remote-backend-locks"
+  name         = "remote-backend-locks-lab2"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "LockID"
 
