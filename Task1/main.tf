@@ -7,7 +7,7 @@ terraform {
     bucket         = "remote-backend-s3-lab2"
     key            = "terraform/terraform.tfstate"
     region         = "ap-southeast-1"
-    dynamodb_table = "remote-backend-locks"
+    dynamodb_table = "remote-backend-locks-lab2"
     encrypt        = true
   }
 }
