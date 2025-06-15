@@ -12,4 +12,5 @@ phases:
       - echo "Running cfn-lint to validate template syntax..."
       - cfn-lint Task2/resource.yaml
       - echo "Running taskcat to test deployment..."
-      - taskcat test run
+      - taskcat test run -c Task2/taskcat.yml
+
