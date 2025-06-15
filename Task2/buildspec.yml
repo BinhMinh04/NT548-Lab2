@@ -9,9 +9,20 @@ phases:
       - pip install cfn-lint taskcat
   build:
     commands:
+      - echo "Current working directory:"
+      - pwd
+      - echo "Files in current directory:"
+      - ls -la
+      - echo "Files in Task2:"
+      - ls -la Task2/
+      - echo "Content of taskcat.yml:"
+      - cat Task2/taskcat.yml
       - echo "Running cfn-lint to validate template syntax..."
       - cfn-lint Task2/resource.yaml
       - echo "Running taskcat to test deployment..."
       - cd Task2
-      - taskcat test run -c taskcat.yml
-
+      - echo "Now in Task2 directory:"
+      - pwd
+      - ls -la
+      - echo "Running taskcat with verbose output..."
+      - taskcat test run -c taskcat.yml --verbose
