@@ -10,7 +10,8 @@ phases:
   build:
     commands:
       - echo "Running cfn-lint to validate template syntax..."
-      - cfn-lint resource.yaml
+      - cfn-lint Task2/resource.yaml
       - echo "Running taskcat to test deployment..."
-      - taskcat test run -c Task2/taskcat.yml
+      - cd Task2
+      - taskcat test run -c taskcat.yml
 
