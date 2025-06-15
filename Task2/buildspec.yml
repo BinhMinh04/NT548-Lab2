@@ -13,4 +13,8 @@ phases:
       - cfn-lint Task2/resource.yaml
       - echo "Running taskcat lint..."
       - cd Task2
+      - echo "Copy taskcat.yml to .taskcat.yml"
+      - cp taskcat.yml .taskcat.yml
+      - echo "Files in Task2:"
+      - ls -la
       - taskcat lint
