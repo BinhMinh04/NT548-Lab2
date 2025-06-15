@@ -2,12 +2,12 @@ project:
   name: nt548-lab2-task2
   regions:
     - ap-southeast-1   
-  tests:
-    default:
-      template: resource.yaml
-      parameters:
-        KeyName: lab2
-        MyIP: 125.235.239.47/32
-      regions:
-        - ap-southeast-1
+tests:
+  default:
+    template: resource.yaml
+    parameters:
+      KeyName: lab2
+      MyIP: 125.235.239.47/32
+    regions:
+      - ap-southeast-1
       
